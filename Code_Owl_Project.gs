@@ -45,9 +45,7 @@ var response=sh.alert("Did you select which tabs to consolidate?",sh.ButtonSet.Y
     sh.alert("Please select which tabs you would like to consolidate");
   
   }
-
 }
-
 
 function CallGetDataFromTab() {
 
@@ -98,7 +96,6 @@ var spreadsheet = SpreadsheetApp.getActive();
 spreadsheet.setActiveSheet(spreadsheet.getSheetByName(ShName), true);
 var sheet = SpreadsheetApp.getActiveSheet();
 var data = sheet.getDataRange().getValues();
-
 var strType;
 var strTab;
 var strInitiative;
@@ -117,11 +114,9 @@ var strInvoiceNum;
 var strBudget;
 var strEstimate;
 var strActuals;
-
 var strUnit;
 var strRate;
 var strQuantity;
-  
 var strNotes;
 var strCode;
 var StrExpenseMonth = new Date();
@@ -152,34 +147,25 @@ var strSavingsCheck;
         strCategory = data[i][2];
         strExpenseType = data[i][3];
         strName = data[i][5];
-        
         strVendor = data[i][6];
         strInvoiceNum = data[i][7];
         strBudget = data[i][8];
-        
         strUnit = data[i][9];
         strRate = data[i][10];
         strQuantity = data[i][11];
-               
-        
         strEstimate = data[i][12];
         strActuals = data[i][13];
         strAssetCount = data[i][14];
-        
-       
         strNotes = data[i][15];
-        
         strGLCode = data[i][16];
         strCostCenter = data[i][19];
         strCode = data[i][20];
         StrExpenseMonth = data[i][21];
         strChildrenKey = '' //data[i][3];
-  
         strBillTo = data[i][22];
         strForecast = data[i][23];
         strFUP = data[i][24];
         strSavingsCheck = data[i][25];
-
         strInitiative = data[3][2];
         
         if (StrExpenseMonth>0){
@@ -195,10 +181,8 @@ var strSavingsCheck;
         // push a row of data as 2d array
         values.push([strType,ShName,strInitiative,'PRC',strProject,strCategory,strExpenseType,strName,strVendor,strInvoiceNum,strBudget,strUnit,strRate,strQuantity,strEstimate,strActuals,strAssetCount,strNotes,strGLCode,strCostCenter,strCode,StrExpenseMonth,strBillTo,strForecast,strFUP,strSavingsCheck,strDateNum,i]);
             
-      }
-     
-  }
-  
+      }    
+  }  
 }
 
 //public variable for data consolidation
@@ -218,12 +202,10 @@ function CallGetDataFromTab_Trigger_2() {
 
 }
 
-
 function CallGetDataFromTab_Trigger_3() {
 
   GetDataFromTab_Trigger(3); 
 }
-
 
 function CallCopyPaste_Trigger() {
 
@@ -244,20 +226,15 @@ var data = sheet.getDataRange().getValues();
  
 // write data to sheet
 DestinationSheet.getRange(1, 1, data.length, data[0].length).setValues(data);
-
 spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Data'), true);
 
 }
-
-
-
 
 function GetDataFromTab_Trigger(runNumber) {
 
 Logger.log('Call Run Number 2:'+ runNumber);  
 
-var CallnumRun = runNumber
-  
+var CallnumRun = runNumber 
 var PasteSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Temp Data');
 var rowPaste;
 var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
@@ -288,8 +265,7 @@ var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
   for (var i = 0; i < data.length; i++) {
     
     Logger.log('Tab name: ' + data[i][0] + '-' + data[i][1] + '-' + data[i][2]);
-    
-    
+       
     var StrSheetName = data[i][0];  
     
     //check if tab is needed
@@ -298,15 +274,13 @@ var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
     Logger.log('Found:' + CallnumRun + '-' + data[i][2]);
     GetDataFromTab(StrSheetName);
       
-    }
-     
+    }    
   }
 // write data to sheet
 PasteSheet.getRange(rowPaste, 1, values.length, values[0].length).setValues(values); 
 
 //activate sheet
 spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Temp Data'), true);
-
 }
 
 function alertCreateNewTab(){
@@ -327,10 +301,8 @@ var response=sh.alert("Would you like to proceed creating new Project Trackers? 
     spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Intake'), true);
        
     sh.alert("Before proceeding update all projects to add on column S - Tab Name");
-    
-  
+     
   }
-
 }
 
 function CreateNewTab() {
@@ -522,9 +494,7 @@ function CallFixFormulas() {
     FixFormulas(StrSheetName);
       
     }
-  }
-  
-  
+  } 
 };
 
 
@@ -562,8 +532,7 @@ function FixFormulasActiveSheet() {
   ss.getRange("W10").setFormula('=if(and(B10="Line Item",T10<>""), IF(or(M10<>"",M10>0),M10,L10),"")');
   var fillDownRange = ss.getRangeByName("W10:W200"); //(10,22,lr -12,1);
   ss.getRange("W10").copyTo(fillDownRange);
-  
-  
+ 
 };
 
 function makeCopy() {
@@ -586,8 +555,6 @@ file.makeCopy(name, destination);
 
 //folder path
 //https://drive.google.com/open?id=1RI0xPtGou3Ju7uUCV_Tbar7rI6-pWvWe
-
-
 }
 
 /**
