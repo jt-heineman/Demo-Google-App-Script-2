@@ -229,18 +229,12 @@ function alertCreateNewTab(){
   var response=sh.alert("Would you like to proceed creating new Project Trackers? ",sh.ButtonSet.YES_NO);
 
   if(response==sh.Button.YES) {
-  
-    CreateNewTab()
-      
+    CreateNewTab()  
   }else{
-  
   var spreadsheet = SpreadsheetApp.getActive();
-  
     //tab with all sheet names, sheet names generate by custom cell function
-    spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Intake'), true);
-       
-    sh.alert("Before proceeding update all projects to add on column S - Tab Name");
-     
+    spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Intake'), true);  
+    sh.alert("Before proceeding update all projects to add on column S - Tab Name");    
   }
 }
 
