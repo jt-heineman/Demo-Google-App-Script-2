@@ -27,9 +27,8 @@ function onOpen(e) {
 
 function alertCallGetDataFromTab(){
 //function to start consolitation process
-var sh=SpreadsheetApp.getUi();
-
-var response=sh.alert("Did you select which tabs to consolidate?",sh.ButtonSet.YES_NO);
+  var sh=SpreadsheetApp.getUi();
+  var response=sh.alert("Did you select which tabs to consolidate?",sh.ButtonSet.YES_NO);
 
   if(response==sh.Button.YES) {  
     CallGetDataFromTab()
@@ -43,17 +42,15 @@ var response=sh.alert("Did you select which tabs to consolidate?",sh.ButtonSet.Y
 }
 
 function CallGetDataFromTab() {
-//cleaning previous range
-var PasteSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data');
-PasteSheet.getRange('A2:AE10000').activate();
-PasteSheet.getActiveRangeList().clear({contentsOnly: true, skipFilteredRows: true});
-
-var spreadsheet = SpreadsheetApp.getActive();
-//tab with all sheet names and parameters for managing what tabs to pass in GetDataFromTab
-spreadsheet.setActiveSheet(spreadsheet.getSheetByName('ADMIN'), true);
-var sheet = SpreadsheetApp.getActiveSheet();
-var data = sheet.getDataRange().getValues();
-  
+  //cleaning previous range
+  var PasteSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data');
+  PasteSheet.getRange('A2:AE10000').activate();
+  PasteSheet.getActiveRangeList().clear({contentsOnly: true, skipFilteredRows: true});
+  var spreadsheet = SpreadsheetApp.getActive();
+  //tab with all sheet names and parameters for managing what tabs to pass in GetDataFromTab
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('ADMIN'), true);
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = sheet.getDataRange().getValues();
   //getting tab names to reference in next function 
   for (var i = 0; i < data.length; i++) {
     Logger.log('Tab name: ' + data[i][0]);
@@ -63,13 +60,11 @@ var data = sheet.getDataRange().getValues();
       GetDataFromTab(StrSheetName);
     }
   }
-
-// write data to sheet
-PasteSheet.getRange(2, 1, values.length, values[0].length).setValues(values);
-Logger.log(k);
-spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Data'), true);
+  // write data to sheet
+  PasteSheet.getRange(2, 1, values.length, values[0].length).setValues(values);
+  Logger.log(k);
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Data'), true);
 }
-
 
 function GetDataFromTab(ShName) {
 //return updates on global array
@@ -175,29 +170,27 @@ function CallGetDataFromTab_Trigger_3() {
 }
 
 function CallCopyPaste_Trigger() {
-//cleaning previous range
-var DestinationSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data');
-DestinationSheet.getRange('A1:AE10000').activate();
-DestinationSheet.getActiveRangeList().clear({contentsOnly: true, skipFilteredRows: true});
-var spreadsheet = SpreadsheetApp.getActive();
- //tab with all temp data
-spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Temp Data'), true);
-var sheet = SpreadsheetApp.getActiveSheet();
-var data = sheet.getDataRange().getValues();
- 
-// write data to sheet
-DestinationSheet.getRange(1, 1, data.length, data[0].length).setValues(data);
-spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Data'), true);
+  //cleaning previous range
+  var DestinationSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data');
+  DestinationSheet.getRange('A1:AE10000').activate();
+  DestinationSheet.getActiveRangeList().clear({contentsOnly: true, skipFilteredRows: true});
+  var spreadsheet = SpreadsheetApp.getActive();
+   //tab with all temp data
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Temp Data'), true);
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+
+  // write data to sheet
+  DestinationSheet.getRange(1, 1, data.length, data[0].length).setValues(data);
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Data'), true);
 }
 
 function GetDataFromTab_Trigger(runNumber) {
-
-Logger.log('Call Run Number 2:'+ runNumber);  
-
-var CallnumRun = runNumber 
-var PasteSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Temp Data');
-var rowPaste;
-var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
+  Logger.log('Call Run Number 2:'+ runNumber);  
+  var CallnumRun = runNumber 
+  var PasteSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Temp Data');
+  var rowPaste;
+  var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
 
   if(CallnumRun === 1){
     //cleaning previous range
@@ -210,11 +203,9 @@ var lastRow = goToFirstRowAfterLastRowWithData(PasteSheet,1)
   }
   
   Logger.log('Call Run Number 3:'+ CallnumRun);
-  
   var spreadsheet = SpreadsheetApp.getActive();
   //tab with all sheet names, sheet names generate by custom cell function
-  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('ADMIN'), true);
-        
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('ADMIN'), true);  
   var sheet = SpreadsheetApp.getActiveSheet();
   var data = sheet.getDataRange().getValues();
   //getting tab names to reference in next iteration 
@@ -260,7 +251,6 @@ var app = SpreadsheetApp;
 var ssintake = app.getActiveSpreadsheet().getSheetByName('Intake');
 var rangeIntake = ssintake.getDataRange().getValues();
 var sh=SpreadsheetApp.getUi();
- 
 //loop intake range to get info needed
 for (var i = 1; i < rangeIntake.length; i++) {  
     //getting variables    
@@ -352,16 +342,13 @@ for (var i = 1; i < rangeIntake.length; i++) {
       PasteSheet.getRange('A10').setValue(ProjectCode);
       var fillDownRange = PasteSheet.getRangeByName(fillRange5); 
       PasteSheet.getRange("A10").copyTo(fillDownRange);
-      
       //stamp tab creation
       ssintake.getRange(i+1,21).setValue('Created');
       
       //send email and update check
       var Project = ssintake.getRange(i+1, 2).getValue();
-      //var Check = ssintake.getRange(i+1, 22).getValue();
       var Title = "Project Created: " + Project ;
       var Comment = "For your acknowledgement, a project was created, please verify if all is accordingly on the Budget Tracker"
-      
       MailApp.sendEmail("user@company.com",Title , Comment);  
       ssintake.getRange(i+1, 22).setValue("TRUE");
 
@@ -400,7 +387,6 @@ function ProtectActiveSheet() {
   protection.setDescription('Project Complete')
 };
 
-
 function CallFixFormulas() {
   var spreadsheet = SpreadsheetApp.getActive();
   //tab with all sheet names, sheet names generate by custom cell function
@@ -409,38 +395,27 @@ function CallFixFormulas() {
   var data = sheet.getDataRange().getValues();
   
   //getting tab names to be updated 
-  for (var i = 0; i < data.length; i++) {
-    
+  for (var i = 0; i < data.length; i++) { 
     Logger.log('Tab name: ' + data[i][0]);
     var StrSheetName = data[i][0];
     //verify if needs update, 0 or 1
     if(data[i][1] === 'Yes'){
-      
     FixFormulas(StrSheetName);
-      
     }
   } 
 };
-
 
 function FixFormulas(StrSheet) {
   var ss = SpreadsheetApp.getActive();
   ss.setActiveSheet(ss.getSheetByName(StrSheet), true);
   ss.getRange("V10").setFormula('=iferror(if(and(MONTH(U10)=$V$3,year(U10)=$V$4),R10&" (Current)",if(U10>$V$5,"2003999 (Prepay)",if(and(U10<=$V$5,M10>0,X10<>true,U10>0),"Paid",if(and(U10<=$V$5,or(M10=0,M10=""),X10=true),"Accrual",if(and(U10<=$V$5,M10>0,X10=true),"Accrual",""))))),"")');
-  
   var lr = ss.getLastRow();
-  
-  //Logger.log(lr);
-  
   var fillDownRange = ss.getRangeByName("V10:V200"); //(10,22,lr -12,1);
   ss.getRange("V10").copyTo(fillDownRange);
-  
-  
   ss.getRange("W10").setFormula('=if(and(B10="Line Item",T10<>""), IF(or(M10<>"",M10>0),M10,L10),"")');
   var fillDownRange = ss.getRangeByName("W10:W200"); //(10,22,lr -12,1);
   ss.getRange("W10").copyTo(fillDownRange);
-  
-  
+
 };
 
 function FixFormulasActiveSheet() {
